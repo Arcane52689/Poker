@@ -44,4 +44,14 @@ class Card
   def poker_value
     VALUES[value]
   end
+
+  def ==(other_card)
+    return false unless other_card.is_a?(Card)
+    value == other_card.value && suit == other_card.suit
+  end
+
+
+  def <=>(other_card)
+    poker_value <=> other_card.poker_value
+  end
 end

@@ -1,3 +1,5 @@
+require 'card.rb'
+
 class Deck
   def self.full_deck
     cards = []
