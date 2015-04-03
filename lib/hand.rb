@@ -7,6 +7,10 @@ class Hand
     sort_by_poker_value
   end
 
+  def [](idx)
+    cards[idx]
+  end
+
   def count
     cards.count
   end
@@ -93,7 +97,18 @@ class Hand
   end
 
 
+  def high_card(other_hand)
+    (count - 1).downto(0) do |idx|
+      case self[idx] <=> other_hand[idx]
 
+      when -1
+        return -1
+      when 1
+        return 1
+      end
+    end
 
+    0
+  end
 
 end

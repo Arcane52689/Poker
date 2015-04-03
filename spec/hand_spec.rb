@@ -132,9 +132,9 @@ describe "sort_by_poker_value" do
     end
 
     it "should evaluate for the hand with the highest card" do
-      expect(hand4.highcard(hand5)).to eq(-1)
-      expect(hand5.highcard(hand4)).to eq(1)
-      expect(hand6.highcard(hand4)).to eq(0)
+      expect(hand4.high_card(hand5)).to eq(-1)
+      expect(hand5.high_card(hand4)).to eq(1)
+      expect(hand6.high_card(hand4)).to eq(0)
     end
   end
 end
