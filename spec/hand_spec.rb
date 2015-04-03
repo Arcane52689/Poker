@@ -136,5 +136,21 @@ describe "sort_by_poker_value" do
       expect(hand5.high_card(hand4)).to eq(1)
       expect(hand6.high_card(hand4)).to eq(0)
     end
+
+    it "should return 0 for equal hands" do
+      expect(hand3.compare_hands(hand3)).to eq(0)
+    end
+
+    it "should return 1 for straight flush vs other hands" do
+      expect(hand1.compare_hands(hand2)).to eq(1)
+      expect(hand1.compare_hands(hand3)).to eq(1)
+    end
+
+    it "should return -1 for other hands vs straight flush" do
+      # expect(hand2.compare_hands(hand1)).to eq(-1)
+      expect(hand3.compare_hands(hand1)).to eq(-1)
+      # expect(hand2.compare_hands(hand3)).to eq(-1)
+    end
+
   end
 end

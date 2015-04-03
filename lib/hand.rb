@@ -9,7 +9,8 @@ class Hand
     :straight,
     :three_of_a_kind,
     :two_pair,
-    :pair
+    :pair,
+    :high_card
   ]
 
 
@@ -21,6 +22,11 @@ class Hand
     sort_by_poker_value
   end
 
+  def inspect
+    @cards.inspect
+  end
+
+
   def [](idx)
     cards[idx]
   end
@@ -29,25 +35,18 @@ class Hand
     EVALUATORS.each do |evaluator|
       result = compare_results(other_hand, evaluator)
       next unless result
-
+      p result
       case result
       when 1
+
         return 1
       when 0
         return 0
       when -1
-        return 1
+        return -1
       end
     end
   end
-
-
-
-
-
-
-
-
 
 
   def compare_results(other_hand, evaluator)
@@ -55,14 +54,15 @@ class Hand
     result2 = other_hand.send(evaluator)
 
     return nil if result1.nil? && result2.nil?
-
+    puts "#{self.cards}, #{other_hand.cards}, #{result1}, #{result2}"
     if result1 && !result2
+      puts 'hi'
       1
     elsif result2 && !result1
       -1
     else
       result1.count.times do |i|
-        comp = result1[i].highest_card(result2[i])
+        comp = result1[i].high_card(result2[i])
         return comp unless comp == 0
       end
       0

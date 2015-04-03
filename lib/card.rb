@@ -45,6 +45,11 @@ class Card
     VALUES[value]
   end
 
+  def inspect
+    @suit.to_s
+    @value.to_s
+  end
+
   def ==(other_card)
     return false unless other_card.is_a?(Card)
     value == other_card.value && suit == other_card.suit
