@@ -64,13 +64,7 @@ describe "sort_by_poker_value" do
               Card.new(:hearts, :jack)])
             end
 
-    let(:hand3) do
-              Hand.new([Card.new(:hearts,:ace),
-              Card.new(:diamonds,:ace),
-              Card.new(:hearts, :ace),
-              Card.new(:spades, :ace),
-              Card.new(:hearts, :jack)])
-            end
+
 
 
     it "should evaluate a flush" do
@@ -104,6 +98,29 @@ describe "sort_by_poker_value" do
       expect(hand1.three_of_a_kind).to eq(nil)
     end
 
+    let(:hand3) do
+              Hand.new([Card.new(:hearts,:ace),
+              Card.new(:diamonds,:ace),
+              Card.new(:hearts, :ace),
+              Card.new(:spades, :ace),
+              Card.new(:hearts, :jack)])
+            end
+
+    let(:hand4) do
+              Hand.new([Card.new(:hearts,:seven),
+              Card.new(:diamonds,:deuce)])
+            end
+    let(:hand5) do
+              Hand.new([Card.new(:hearts,:seven),
+              Card.new(:diamonds,:three)])
+            end
+
+    let(:hand6) do
+              Hand.new([Card.new(:hearts,:seven),
+              Card.new(:diamonds,:deuce)])
+            end
+
+
     it "should evaluate four of a kind" do
       expect(hand3.four_of_a_kind).to_not eq(nil)
       expect(hand1.four_of_a_kind).to eq(nil)
@@ -114,6 +131,10 @@ describe "sort_by_poker_value" do
       expect(hand1.full_house).to eq(nil)
     end
 
-
+    it "should evaluate for the hand with the highest card" do
+      expect(hand4.highcard(hand5)).to eq(-1)
+      expect(hand5.highcard(hand4)).to eq(1)
+      expect(hand6.highcard(hand4)).to eq(0)
+    end
   end
 end

@@ -79,7 +79,7 @@ class Hand
   end
 
   def full_house
-
+    three_of_a_kind && three_of_a_kind[1].pair ? [Hand.new(cards)] : nil
   end
 
   def four_of_a_kind
