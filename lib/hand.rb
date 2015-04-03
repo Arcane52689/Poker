@@ -1,6 +1,20 @@
 require_relative 'deck.rb'
 
 class Hand
+  EVALUATORS = [
+    :straight_flush,
+    :four_of_a_kind,
+    :full_house,
+    :flush,
+    :straight,
+    :three_of_a_kind,
+    :two_pair,
+    :pair
+  ]
+
+
+
+
   attr_reader :cards
   def initialize(cards)
     @cards = cards
@@ -10,6 +24,56 @@ class Hand
   def [](idx)
     cards[idx]
   end
+
+  def compare_hands(other_hand)
+    EVALUATORS.each do |evaluator|
+      result = compare_results(other_hand, evaluator)
+      next unless result
+
+      case result
+      when 1
+        return 1
+      when 0
+        return 0
+      when -1
+        return 1
+      end
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+  def compare_results(other_hand, evaluator)
+    result1 = send(evaluator)
+    result2 = other_hand.send(evaluator)
+
+    return nil if result1.nil? && result2.nil?
+
+    if result1 && !result2
+      1
+    elsif result2 && !result1
+      -1
+    else
+      result1.count.times do |i|
+        comp = result1[i].highest_card(result2[i])
+        return comp unless comp == 0
+      end
+      0
+    end
+
+  end
+
+
+
+
+
 
   def count
     cards.count
@@ -63,7 +127,9 @@ class Hand
   def two_pair
     if pair
       return nil unless pair[1].pair
-      [pair[0]].concat(pair[1].pair).flatten
+      low_pair = pair[0]
+      high_pair = pair[1].pair
+      high_pair.insert(1, low_pair)
     else
       nil
     end
@@ -83,7 +149,7 @@ class Hand
   end
 
   def full_house
-    three_of_a_kind && three_of_a_kind[1].pair ? [Hand.new(cards)] : nil
+    three_of_a_kind && three_of_a_kind[1].pair ? three_of_a_kind : nil
   end
 
   def four_of_a_kind
@@ -110,5 +176,6 @@ class Hand
 
     0
   end
+
 
 end
