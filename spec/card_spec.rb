@@ -44,6 +44,29 @@ describe 'card' do
     end
   end
 
+  describe "Card Comparisons" do
+
+    let(:card1) { Card.new(:hearts, :ace) }
+    let(:card2) { Card.new(:spades, :queen) }
+    let(:card3) { Card.new(:spades, :queen) }
+
+    it 'should compare to cards by their poker values' do
+      expect(card1 <=> card2).to eq(1)
+      expect(card2 <=> card3).to eq(0)
+      expect(card3 <=> card1).to eq(-1)
+    end
+
+    it 'should check to see if two cards are the same' do
+      expect(card2).to eq(card3)
+    end
+
+    it 'should return true for cards of the same value' do
+      expect(card2.same_value?(card3)).to eq(true)
+      expect(card2.same_value?(card1)).to eq(false)
+    end
+  end
+
+
 
 
 end

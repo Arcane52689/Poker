@@ -54,4 +54,8 @@ class Card
   def <=>(other_card)
     poker_value <=> other_card.poker_value
   end
+
+  def same_value?(other_card)
+    poker_value == other_card.poker_value
+  end
 end

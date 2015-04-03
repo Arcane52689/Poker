@@ -1,4 +1,4 @@
-require 'card.rb'
+require_relative 'card.rb'
 
 class Deck
   def self.full_deck

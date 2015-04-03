@@ -42,9 +42,78 @@ describe "sort_by_poker_value" do
 
     it 'should sort the hand by poker value' do
       hand.sort_by_poker_value
-      expect(hand.card).to eq([Card.new(:hearts,:ace),
+      expect(hand.cards).to eq([Card.new(:hearts,:ace),
                 Card.new(:spades,:eight),
                 Card.new(:diamonds, :deuce)].reverse)
     end
+  end
+
+  describe "hand evaluation" do
+    let(:hand1) do
+              Hand.new([Card.new(:hearts,:ace),
+              Card.new(:hearts,:king),
+              Card.new(:hearts, :queen),
+              Card.new(:hearts, :jack),
+              Card.new(:hearts, :ten)])
+            end
+    let(:hand2) do
+              Hand.new([Card.new(:hearts,:ace),
+              Card.new(:diamonds,:ace),
+              Card.new(:hearts, :ace),
+              Card.new(:spades, :jack),
+              Card.new(:hearts, :jack)])
+            end
+
+    let(:hand3) do
+              Hand.new([Card.new(:hearts,:ace),
+              Card.new(:diamonds,:ace),
+              Card.new(:hearts, :ace),
+              Card.new(:spades, :ace),
+              Card.new(:hearts, :jack)])
+            end
+
+
+    it "should evaluate a flush" do
+      expect(hand1.flush).to_not eq(nil)
+      expect(hand2.flush).to eq(nil)
+    end
+
+    it "should evaluate a straight" do
+      expect(hand1.straight).to_not eq(nil)
+      expect(hand2.straight).to eq(nil)
+    end
+
+    it "should evaluate a straight flush" do
+      expect(hand1.straight_flush).to_not eq(nil)
+      expect(hand2.straight_flush).to eq(nil)
+    end
+
+    it "should evaluate pair" do
+      expect(hand2.pair).to_not eq(nil)
+      expect(hand1.pair).to eq(nil)
+    end
+
+    it "should evaluate two pair" do
+      expect(hand2.two_pair).to_not eq(nil)
+      expect(hand1.two_pair).to eq(nil)
+    end
+
+
+    it "should evaluate three of a kind" do
+      expect(hand2.three_of_a_kind).to_not eq(nil)
+      expect(hand1.three_of_a_kind).to eq(nil)
+    end
+
+    it "should evaluate four of a kind" do
+      expect(hand3.four_of_a_kind).to_not eq(nil)
+      expect(hand1.four_of_a_kind).to eq(nil)
+    end
+
+    it "should evaluate full house" do
+      expect(hand2.full_house).to_not eq(nil)
+      expect(hand1.full_house).to eq(nil)
+    end
+
+
   end
 end
