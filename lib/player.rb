@@ -38,6 +38,11 @@ class Player
     hand.draw(cards)
   end
 
+  def ask
+    puts "Please enter fold, see, or raise"
+    gets.chomp
+  end
+
 
 
 end

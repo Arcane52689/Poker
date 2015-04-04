@@ -29,6 +29,11 @@ describe "player class" do
     it "should place a wager" do
       expect(player.wager(100)).to eq(100)
     end
+
+    it "should add winnings to the bank" do
+      player.collect_winnings(200)
+      expect(player.bank).to eq(2200)
+    end
   end
 
   describe "Player Hand" do
@@ -86,6 +91,18 @@ describe "player class" do
       player.discard_cards([1,2])
       expect {player.draw_cards(cards2)}.to raise_error
     end
+
+  end
+
+  describe "Game Play" do
+    let(:player) {Player.new("Thomas",1000)}
+    it "should ask a player if they want to fold, see, or raise" do
+      expect { player.ask }.to_not raise_error
+    end
+
+
+
+
 
   end
 
