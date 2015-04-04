@@ -34,9 +34,21 @@ describe "game" do
       expect(new_game.players.count).to eq(2)
     end
 
-
   end
 
+  describe "playing a hand" do
+    it "should go through players one at a time"
+
+    it "should raise an error if player doesn't select see, fold, raise"
+
+    it "should deal a hand to each player"
+
+    it "should return a players cards to the deck after discarding them"
+
+    it "should return a players hand to the deck after each game"
+
+
+  end
 
 
 end
