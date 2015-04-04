@@ -13,9 +13,9 @@ describe 'Hand' do
     let(:hand) { Hand.new([1, 2, 3, 4, 5]) }
 
     it "should remove cards at the specified indices" do
-      hand.discard([1, 3])
-      expect(hand.count).to eq(3)
-      expect(hand.cards).to eq([1, 3, 5])
+      hand.discard([1, 3, 4])
+      expect(hand.count).to eq(2)
+      expect(hand.cards).to eq([1, 3])
     end
 
     it "should return the cards removed" do

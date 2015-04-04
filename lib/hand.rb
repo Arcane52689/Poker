@@ -83,12 +83,12 @@ class Hand
     discarded = list.map do |idx|
       cards[idx]
     end
-
     discarded.each { |card| cards.delete(card) }
   end
 
   def draw(new_cards)
     cards.concat(new_cards)
+    sort_by_poker_value
   end
 
   def sort_by_poker_value
