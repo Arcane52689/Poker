@@ -35,7 +35,6 @@ class Hand
     EVALUATORS.each do |evaluator|
       result = compare_results(other_hand, evaluator)
       next unless result
-      p result
       case result
       when 1
 
@@ -54,9 +53,7 @@ class Hand
     result2 = other_hand.send(evaluator)
 
     return nil if result1.nil? && result2.nil?
-    puts "#{self.cards}, #{other_hand.cards}, #{result1}, #{result2}"
     if result1 && !result2
-      puts 'hi'
       1
     elsif result2 && !result1
       -1
